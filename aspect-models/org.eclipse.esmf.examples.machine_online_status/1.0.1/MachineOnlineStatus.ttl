@@ -1,0 +1,37 @@
+# Copyright (c) 2026 Robert Bosch Manufacturing Solutions GmbH
+#
+# See the AUTHORS file(s) distributed with this work for
+# additional information regarding authorship.
+#
+# This Source Code Form is subject to the terms of the Mozilla Public
+# License, v. 2.0. If a copy of the MPL was not distributed with this
+# file, You can obtain one at https://mozilla.org/MPL/2.0/.
+#
+# SPDX-License-Identifier: MPL-2.0
+
+@prefix samm: <urn:samm:org.eclipse.esmf.samm:meta-model:2.2.0#> .
+@prefix samm-c: <urn:samm:org.eclipse.esmf.samm:characteristic:2.2.0#> .
+@prefix samm-e: <urn:samm:org.eclipse.esmf.samm:entity:2.2.0#> .
+@prefix unit: <urn:samm:org.eclipse.esmf.samm:unit:2.2.0#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix : <urn:samm:org.eclipse.esmf.examples.machine_online_status:1.0.1#> .
+
+# The modeler decides to reify the possible status values by using an
+# Enumeration as the characteristic. Because the Property still has the string
+# datatype, payloads for the previous and the current model version do not
+# differ. Taking into account that the description in the previous model version
+# states the valid values and they do not differ to the Enumeration’s values,
+# this makes the change a safe change. Therefore, the Aspect Model’s version is
+# increased to 1.0.1.
+
+:MachineOnlineStatus a samm:Aspect ;
+   samm:properties ( :machineOnlineStatus ) ;
+   samm:operations ( ) .
+
+:machineOnlineStatus a samm:Property ;
+   samm:description "The current machine online status."@en ;
+   samm:characteristic [
+      a samm-c:Enumeration ;
+      samm:dataType xsd:string ;
+      samm-c:values ( "ON" "OFF" "BOOTING" "UNDEFINED" )
+   ] .

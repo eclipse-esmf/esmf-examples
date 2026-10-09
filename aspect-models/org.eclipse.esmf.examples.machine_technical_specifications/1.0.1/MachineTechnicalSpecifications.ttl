@@ -1,0 +1,87 @@
+# Copyright (c) 2026 Robert Bosch Manufacturing Solutions GmbH
+#
+# See the AUTHORS file(s) distributed with this work for
+# additional information regarding authorship.
+#
+# This Source Code Form is subject to the terms of the Mozilla Public
+# License, v. 2.0. If a copy of the MPL was not distributed with this
+# file, You can obtain one at https://mozilla.org/MPL/2.0/.
+#
+# SPDX-License-Identifier: MPL-2.0
+
+@prefix samm: <urn:samm:org.eclipse.esmf.samm:meta-model:2.2.0#> .
+@prefix samm-c: <urn:samm:org.eclipse.esmf.samm:characteristic:2.2.0#> .
+@prefix samm-e: <urn:samm:org.eclipse.esmf.samm:entity:2.2.0#> .
+@prefix unit: <urn:samm:org.eclipse.esmf.samm:unit:2.2.0#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix : <urn:samm:org.eclipse.esmf.examples.machine_technical_specifications:1.0.1#> .
+
+:MachineTechnicalSpecifications a samm:Aspect ;
+   samm:properties (
+      :dimensions
+      :weight
+      :nominalPower
+   ) .
+
+:dimensions a samm:Property ;
+   samm:characteristic [
+      a samm-c:SingleEntity ;
+      samm:dataType :Dimensions ;
+   ] .
+
+:Dimensions a samm:Entity ;
+   samm:properties (
+      :width
+      :height
+      :depth
+   ) .
+
+:width a samm:Property ;
+   samm:see <https://schema.org/width> ;
+   samm:characteristic :Length .
+
+:height a samm:Property ;
+   samm:see <https://schema.org/height> ;
+   samm:characteristic :Length .
+
+:depth a samm:Property ;
+   samm:see <https://schema.org/height> ;
+   samm:characteristic :Length .
+
+# The original Quantifiable is turned into the baseCharacteristic
+# of a Trait which takes the original name. This way, referring
+# to :Length logically still means the same thing, but in the
+# Trait, we can add a Constraint on the value.
+# Since length can't be negative, we make this explicit with the
+# Constraint.
+:Length a samm-c:Trait ;
+   samm-c:baseCharacteristic [
+      a samm-c:Quantifiable ;
+      samm:dataType xsd:float ;
+      samm-c:unit unit:metre ;
+   ] ;
+   samm-c:constraint :NonNegativeFloatValue .
+
+:weight a samm:Property ;
+   samm:see <https://schema.org/weight> ;
+   samm:characteristic :Weight .
+
+# The Trait is introduced the same way as for :Length.
+# The weight also can't be negative, so we use the same Constraint.
+:Weight a samm-c:Trait ;
+   samm-c:baseCharacteristic [
+      a samm-c:Quantifiable ;
+      samm:dataType xsd:float ;
+      samm-c:unit unit:kilogram ;
+   ] ;
+   samm-c:constraint :NonNegativeFloatValue .
+
+:NonNegativeFloatValue a samm-c:RangeConstraint ;
+   samm-c:minValue "0"^^xsd:float .
+
+:nominalPower a samm:Property ;
+   samm:characteristic :Power .
+
+:Power a samm-c:Quantifiable ;
+   samm:dataType xsd:float ;
+   samm-c:unit unit:kilowatt .

@@ -1,0 +1,54 @@
+# Copyright (c) 2026 Robert Bosch Manufacturing Solutions GmbH
+#
+# See the AUTHORS file(s) distributed with this work for
+# additional information regarding authorship.
+#
+# This Source Code Form is subject to the terms of the Mozilla Public
+# License, v. 2.0. If a copy of the MPL was not distributed with this
+# file, You can obtain one at https://mozilla.org/MPL/2.0/.
+#
+# SPDX-License-Identifier: MPL-2.0
+
+@prefix samm: <urn:samm:org.eclipse.esmf.samm:meta-model:2.2.0#> .
+@prefix samm-c: <urn:samm:org.eclipse.esmf.samm:characteristic:2.2.0#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix : <urn:samm:org.eclipse.esmf.examples.asset_master_data:1.0.2#> .
+
+# Adds German preferredNames and descriptions to model elements.
+
+:AssetMasterData a samm:Aspect ;
+   samm:preferredName "asset master data"@en ;
+   samm:preferredName "Asset Stammdaten"@de ;
+   samm:description "Basic information that is available for every asset."@en ;
+   samm:description "Grundlegende Informationen die für jedes Asset verfügbar sind."@de ;
+   samm:properties (
+      [ samm:property :identifier ; samm:payloadName "assetIdentifier" ]
+      [ samm:property :description ; samm:payloadName "assetDescription" ]
+   ) .
+
+:identifier a samm:Property ;
+   samm:preferredName "asset identifier"@en ;
+   samm:preferredName "Asset-Bezeichner"@de ;
+   samm:description "Unique identifer of an asset."@en ;
+   samm:description "Bezeichner, der ein Asset eindeutig identifiziert."@de ;
+   samm:characteristic [
+      a samm-c:Code ;
+      samm:dataType xsd:string ;
+   ] .
+
+# We change samm-c:Text to samm-c:MultiLanguageText.
+# This means that the JSON data is changed from
+# { "description": "something" }
+# to
+# { "description": { "en": "something" } }
+# so it explicitly describes the language the text
+# is given in.
+# If required, we could also use a samm-c:Collection with
+# a samm-c:elementCharacteristic of samm-c:MultiLanguageText
+# to return multiple language-tagged descriptions.
+:description a samm:Property ;
+   samm:preferredName "asset description"@en ;
+   samm:preferredName "Asset-Beschreibung"@de ;
+   samm:description "Human-readable description of an asset."@en ;
+   samm:description "Menschenlesbare Beschreibung eines Assets."@de ;
+   samm:characteristic samm-c:MultiLanguageText .

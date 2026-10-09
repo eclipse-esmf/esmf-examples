@@ -1,0 +1,43 @@
+# Copyright (c) 2026 Robert Bosch Manufacturing Solutions GmbH
+#
+# See the AUTHORS file(s) distributed with this work for
+# additional information regarding authorship.
+#
+# This Source Code Form is subject to the terms of the Mozilla Public
+# License, v. 2.0. If a copy of the MPL was not distributed with this
+# file, You can obtain one at https://mozilla.org/MPL/2.0/.
+#
+# SPDX-License-Identifier: MPL-2.0
+
+@prefix samm: <urn:samm:org.eclipse.esmf.samm:meta-model:2.2.0#> .
+@prefix samm-c: <urn:samm:org.eclipse.esmf.samm:characteristic:2.2.0#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix : <urn:samm:org.eclipse.esmf.examples.asset_master_data:1.0.1#> .
+
+# Since the "assetIdentifier" and "assetDescription" Properties are
+# already defined in the org.eclipse.esmf.examples.asset_master_data
+# namespace, having "asset" in their name is redundant. We remove the
+# common prefix from their name. In order to keep the mapping of the
+# Properties to their former name in the data consistent, we can
+# instead rename their local use ("payload name").
+
+:AssetMasterData a samm:Aspect ;
+   samm:preferredName "asset master data"@en ;
+   samm:description "Basic information that is available for every asset."@en ;
+   samm:properties (
+      [ samm:property :identifier ; samm:payloadName "assetIdentifier" ]
+      [ samm:property :description ; samm:payloadName "assetDescription" ]
+   ) .
+
+:identifier a samm:Property ;
+   samm:preferredName "asset identifier"@en ;
+   samm:description "Unique identifer of an asset."@en ;
+   samm:characteristic [
+      a samm-c:Code ;
+      samm:dataType xsd:string ;
+   ] .
+
+:description a samm:Property ;
+   samm:preferredName "asset description"@en ;
+   samm:description "Human-readable description of an asset."@en ;
+   samm:characteristic samm-c:Text .

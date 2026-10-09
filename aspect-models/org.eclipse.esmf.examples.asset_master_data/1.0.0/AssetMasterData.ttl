@@ -1,0 +1,44 @@
+# Copyright (c) 2026 Robert Bosch Manufacturing Solutions GmbH
+#
+# See the AUTHORS file(s) distributed with this work for
+# additional information regarding authorship.
+#
+# This Source Code Form is subject to the terms of the Mozilla Public
+# License, v. 2.0. If a copy of the MPL was not distributed with this
+# file, You can obtain one at https://mozilla.org/MPL/2.0/.
+#
+# SPDX-License-Identifier: MPL-2.0
+
+@prefix samm: <urn:samm:org.eclipse.esmf.samm:meta-model:2.2.0#> .
+@prefix samm-c: <urn:samm:org.eclipse.esmf.samm:characteristic:2.2.0#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix : <urn:samm:org.eclipse.esmf.examples.asset_master_data:1.0.0#> .
+
+# The following Aspect is the root element of the model.
+:AssetMasterData a samm:Aspect ;
+   samm:preferredName "asset master data"@en ;
+   samm:description "Basic information that is available for every asset."@en ;
+   samm:properties (
+      :assetIdentifier
+      :assetDescription
+   ) .
+
+# The asset identifier is a code that identifies an asset.
+# Event though its data type is a string, it does not use
+# the samm-c:Text Characteristic, because an identifier value
+# is not primarily intended for humans (even though it might
+# be human-readable). Instead, it uses samm-c:Code.
+:assetIdentifier a samm:Property ;
+   samm:preferredName "asset identifier"@en ;
+   samm:description "Unique identifer of an asset."@en ;
+   samm:characteristic [
+      a samm-c:Code ;
+      samm:dataType xsd:string ;
+   ] .
+
+# The asset description on the other hand is explicitly intended
+# for human consumption, so it uses samm-c:Text as its Characteristic.
+:assetDescription a samm:Property ;
+   samm:preferredName "asset description"@en ;
+   samm:description "Human-readable description of an asset."@en ;
+   samm:characteristic samm-c:Text .
