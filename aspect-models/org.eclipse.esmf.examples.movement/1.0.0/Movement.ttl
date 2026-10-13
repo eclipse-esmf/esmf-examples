@@ -18,24 +18,24 @@
 
 :Movement a samm:Aspect ;
    samm:preferredName "movement"@en ;
-   samm:description "Aspect for movement information"@en ;
+   samm:description "Aspect for movement information."@en ;
    samm:properties ( :isMoving :position :speed :speedLimitWarning ) ;
    samm:operations ( ) ;
    samm:events ( ) .
 
 :isMoving a samm:Property ;
    samm:preferredName "is moving"@en ;
-   samm:description "Flag indicating whether the asset is currently moving"@en ;
+   samm:description "Flag indicating whether the asset is currently moving."@en ;
    samm:characteristic samm-c:Boolean .
 
 :position a samm:Property ;
    samm:preferredName "position"@en ;
-   samm:description "Indicates a position"@en ;
+   samm:description "Indicates a position."@en ;
    samm:characteristic :SpatialPositionCharacteristic .
 
 :speed a samm:Property ;
    samm:preferredName "speed"@en ;
-   samm:description "speed of vehicle"@en ;
+   samm:description "Speed of vehicle."@en ;
    samm:characteristic :Speed .
 
 :speedLimitWarning a samm:Property ;
@@ -62,40 +62,40 @@
 
 :SpatialPosition a samm:Entity ;
    samm:preferredName "spatial position"@en ;
-   samm:description "Represents latitude, longitude and altitude information in the WGS84 geodetic reference datum"@en ;
+   samm:description "Represents latitude, longitude and altitude information in the WGS84 geodetic reference datum."@en ;
    samm:see <https://www.w3.org/2003/01/geo/> ;
    samm:properties ( :latitude :longitude [ samm:property :altitude; samm:optional true ] ) .
 
 :latitude a samm:Property ;
    samm:preferredName "latitude"@en ;
-   samm:description "latitude coordinate in space (WGS84)"@en ;
+   samm:description "Latitude coordinate in space (WGS84)."@en ;
    samm:see <http://www.w3.org/2003/01/geo/wgs84_pos#lat> ;
    samm:characteristic :Coordinate ;
    samm:exampleValue "9.1781"^^xsd:decimal .
 
 :longitude a samm:Property ;
    samm:preferredName "longitude"@en ;
-   samm:description "longitude coordinate in space (WGS84)"@en ;
+   samm:description "Longitude coordinate in space (WGS84)."@en ;
    samm:see <http://www.w3.org/2003/01/geo/wgs84_pos#long> ;
    samm:characteristic :Coordinate ;
    samm:exampleValue "48.80835"^^xsd:decimal .
 
 :altitude a samm:Property ;
    samm:preferredName "altitude"@en ;
-   samm:description "Elevation above sea level zero"@en ;
+   samm:description "Elevation above sea level zero."@en ;
    samm:see <http://www.w3.org/2003/01/geo/wgs84_pos#alt> ;
    samm:characteristic :MetresAboveMeanSeaLevel ;
    samm:exampleValue "153"^^xsd:float .
 
 :Coordinate a samm-c:Measurement ;
    samm:preferredName "coordinate"@en ;
-   samm:description "Representing the geographical coordinate"@en ;
+   samm:description "Representing the geographical coordinate."@en ;
    samm:dataType xsd:decimal ;
    samm-c:unit unit:degreeUnitOfAngle .
 
 :MetresAboveMeanSeaLevel a samm-c:Measurement ;
    samm:preferredName "metres above mean sea level"@en ;
-   samm:description "Signifies the vertical distance in reference to a historic mean sea level as a vertical datum"@en ;
+   samm:description "Signifies the vertical distance in reference to a historic mean sea level as a vertical datum."@en ;
    samm:see <https://en.wikipedia.org/wiki/Height_above_sea_level> ;
    samm:dataType xsd:float ;
    samm-c:unit unit:metre .
